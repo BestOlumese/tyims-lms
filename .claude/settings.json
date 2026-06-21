@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const {RPCHandler} = require\\('@orpc/server/fetch'\\); console.log\\(typeof RPCHandler\\)\")",
+      "Bash(node -e \"const pkg = require\\('./package.json'\\); const keys = Object.keys\\({...pkg.dependencies, ...pkg.devDependencies}\\); console.log\\(keys.filter\\(k => k.includes\\('mux'\\) || k.includes\\('video'\\) || k.includes\\('player'\\) || k.includes\\('hls'\\)\\)\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(npx tsx -e ' *)",
+      "Bash(npx tsx *)",
+      "Bash(node --import tsx/esm -e ' *)",
+      "Bash(grep -v \"SECURITY\\\\|next major\\\\|pg-connection\\\\|uselibpqcompat\\\\|verify-full\\\\|libpq-ssl\\\\|prepare for\\\\|want the current\\\\|want libpq\\\\|Use \\\\`node\")",
+      "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\ICT\\\\Desktop\\\\ADMIN\\\\PROJECTS\\\\TYIMS-PROJ\\\\lms-platform\" -Directory | Where-Object { $_.Name -match \"upskill|components|app\" } | Select-Object -ExpandProperty FullName)",
+      "Bash(xargs grep -l \"dropdown\\\\|account\\\\|user\")",
+      "Bash(Get-ChildItem -Recurse -Path \"c:\\\\Users\\\\ICT\\\\Desktop\\\\ADMIN\\\\PROJECTS\\\\TYIMS-PROJ\\\\lms-platform\\\\server\\\\db\" -Filter \"*schema*\" -ErrorAction SilentlyContinue)"
+    ]
+  }
+}
