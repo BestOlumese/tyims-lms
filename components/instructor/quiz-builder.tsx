@@ -49,7 +49,6 @@ export const QuizBuilder = ({
   // Sync server data to local state
   useEffect(() => {
     if (!isLoading && !initialized) {
-      console.log("QuizBuilder: Loading questions from server...", serverQuestions);
       const mapped = (serverQuestions || []).map((q: any) => ({
         id: q.id,
         question: q.question,
@@ -74,7 +73,6 @@ export const QuizBuilder = ({
   // Notify parent of subsequent local changes
   useEffect(() => {
     if (initialized) {
-      console.log("QuizBuilder: Local changes detected, updating parent...", localQuestions);
       onQuestionsChange(localQuestions);
 
       // Validation logic

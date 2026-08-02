@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "@/lib/auth/auth-client";
+import { authClient, signIn } from "@/lib/auth/auth-client";
 import { useRouter } from "next/navigation";
 import { Loader2, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
@@ -19,11 +19,21 @@ export default function LoginForm() {
 
     try {
       await signIn.email(
-        { email, password, callbackURL: "/" },
+        { email, password },
         {
-          onSuccess: () => {
+          onSuccess: async () => {
+            // Route by role. This used to always push "/", so an admin signing in at
+            // /admin/login landed on the public homepage instead of the dashboard.
+            const { data } = await authClient.getSession();
+            const role = (data?.user as { role?: string } | undefined)?.role;
             toast.success("Welcome back!");
-            router.push("/");
+            router.push(
+              role === "ADMIN"
+                ? "/admin"
+                : role === "INSTRUCTOR"
+                  ? "/instructor"
+                  : "/dashboard",
+            );
             router.refresh();
           },
           onError: (ctx) => {
@@ -122,29 +132,6 @@ export default function LoginForm() {
           </form>
         </div>
 
-        {/* Seed accounts info */}
-        <div className="mt-6 bg-white rounded-xl border border-gray-200 shadow-sm p-4">
-          <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-3">
-            Test Accounts
-          </p>
-          <div className="space-y-2 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-gray-600 font-mono text-xs">admin@lms.com</span>
-              <span className="text-xs font-medium text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">
-                Admin
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-gray-600 font-mono text-xs">instructor@lms.com</span>
-              <span className="text-xs font-medium text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">
-                Instructor
-              </span>
-            </div>
-          </div>
-          <p className="text-xs text-gray-400 mt-3 pt-2 border-t border-gray-100">
-            Password: <span className="font-mono">password123</span>
-          </p>
-        </div>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 export const slides = [
   {
     dataYear: "Start Your Career",
-    imgSrc: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.0.3&s=1a2b3c4d",
+    imgSrc: "/images/page-title/page-title-home9.jpg",
     imgAlt: "Students learning together",
     imgWidth: 1800,
     imgHeight: 900,
@@ -17,7 +17,7 @@ export const slides = [
   },
   {
     dataYear: "Student Life",
-    imgSrc: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.0.3&s=5d6e7f8a",
+    imgSrc: "/images/page-title/page-title-home91.jpg",
     imgAlt: "Campus study scene",
     imgWidth: 1800,
     imgHeight: 900,
@@ -33,7 +33,7 @@ export const slides = [
   },
   {
     dataYear: "Graduate",
-    imgSrc: "https://images.unsplash.com/photo-1554774853-ae20a2e1f47c?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.0.3&s=9b8c7d6e",
+    imgSrc: "/images/page-title/page-title-home10.jpg",
     imgAlt: "Graduation celebration",
     imgWidth: 1800,
     imgHeight: 900,

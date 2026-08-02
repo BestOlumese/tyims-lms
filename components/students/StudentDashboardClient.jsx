@@ -66,7 +66,7 @@ function RecentCourseRow({ course }) {
                 justifyContent: "center",
               }}
             >
-              <i className="flaticon-online-learning" style={{ fontSize: 24, color: "#ccc" }} />
+              <i className="flaticon-online-training" style={{ fontSize: 24, color: "#ccc" }} />
             </div>
           )}
         </div>
@@ -261,7 +261,7 @@ export default function StudentDashboardClient() {
                         style={{ padding: "40px 30px", textAlign: "center", color: "#888" }}
                       >
                         <i
-                          className="flaticon-online-learning"
+                          className="flaticon-online-training"
                           style={{ fontSize: 48, color: "#ccc", display: "block", marginBottom: 12 }}
                         />
                         <p style={{ marginBottom: 20 }}>

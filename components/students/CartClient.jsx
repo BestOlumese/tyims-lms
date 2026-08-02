@@ -64,7 +64,7 @@ export default function CartClient() {
                                       justifyContent: "center",
                                     }}
                                   >
-                                    <i className="flaticon-online-learning" style={{ fontSize: 20, color: "#ccc" }} />
+                                    <i className="flaticon-online-training" style={{ fontSize: 20, color: "#ccc" }} />
                                   </div>
                                 )}
                               </li>

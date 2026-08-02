@@ -1,0 +1,62 @@
+/*
+ * Upskill template stylesheet bundle.
+ *
+ * These were previously nine runtime <link rel="stylesheet"> tags rendered inside
+ * app/(student)/layout.tsx, app/(auth)/layout.tsx and app/(learn)/layout.tsx.
+ * Because React only hoists <link> into <head> when it carries a `precedence` prop,
+ * the browser discovered them late and the page painted unstyled first (FOUC).
+ *
+ * Importing them here routes the same CSS through the Next build instead:
+ * minified, content-hashed, and emitted as a render-blocking <link> in <head>.
+ *
+ * !! ORDER IS LOAD-BEARING !! It mirrors the original <link> order exactly.
+ * template-main.css overrides bootstrap, so bootstrap must come first.
+ *
+ * NOTE: deliberately NOT imported into app/globals.css. The (dashboards) routes
+ * are Tailwind-based; pulling Bootstrap's reboot in there would break them.
+ * This file is imported only by the three template-shell layouts.
+ */
+
+@import "../public/css/bootstrap.css";
+@import "../public/css/animate.min.css";
+@import "../public/css/mmenu.css";
+@import "../public/css/swiper-bundle.min.css";
+@import "../public/css/magnific-popup.min.css";
+@import "../public/css/template-main.css";
+/* public/font/fonts.css intentionally NOT imported — see the font override block below. */
+@import "../public/icons/flat/flaticon_upskill.css";
+@import "../public/icons/icomoon/style.css";
+
+/*
+ * ── Font overrides ───────────────────────────────────────────────────────────
+ * fonts.css @font-face'd 18 files from fonts.gstatic.com at runtime. Those faces are
+ * now self-hosted by next/font (see app/layout.tsx), which exposes them as CSS
+ * variables instead of the literal family names the template hardcodes.
+ *
+ * These rules repoint the template's font declarations at those variables. The list is
+ * exhaustive for what this app renders — verified by grepping template-main.css for
+ * every `font-family:` referencing DM Sans / Cardo / Outfit. The remaining matches live
+ * in .pricing-item, .contact-wrap, .map-listing-item and .section-page-event-single,
+ * none of which this app renders, but they are included anyway so the mapping is total.
+ */
+body,
+button,
+input,
+select,
+textarea,
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6,
+.tooltip .tooltip-inner,
+.map-listing-item .inner-box .content .icon-box .item p,
+.section-page-event-single .sidebar-event .sidebar-event-content ul li p {
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-cardo,
+.contact-wrap .content-right h2 {
+  font-family: var(--font-cardo), Georgia, serif !important;
+}
+
+.font-outfit,
+.pricing-item .pricing-price .price-month h6 {
+  font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif !important;
+}

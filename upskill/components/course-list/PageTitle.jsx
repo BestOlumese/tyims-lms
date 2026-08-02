@@ -1,6 +1,15 @@
 import React from "react";
 import Link from "next/link";
 
+/**
+ * @param {{
+ *   pageName?: string,
+ *   parentClass?: string,
+ *   breadcrumbs?: { label: string, href?: string }[],
+ *   parentHref?: string,
+ *   parentLabel?: string,
+ * }} props
+ */
 export default function PageTitle({
   pageName = "Courses",
   parentClass = "page-title style-2 no-border has-bg4 py-60",

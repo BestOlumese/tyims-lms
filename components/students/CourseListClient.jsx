@@ -17,6 +17,16 @@ const SORT_OPTIONS = [
   { value: "price_desc", label: "Price (High to Low)" },
 ];
 
+/**
+ * @typedef {{ total: number, page: number, pageSize: number, data: any[] }} CourseListPage
+ *
+ * @param {{
+ *   initialCategoryId?: string | null,
+ *   initialData?: CourseListPage | null,
+ *   initialQ?: string,
+ *   hideCategoryFilter?: boolean,
+ * }} [props]
+ */
 export default function CourseListClient({
   initialCategoryId = null,
   initialData = null,
@@ -417,7 +427,7 @@ export default function CourseListClient({
                                 justifyContent: "center",
                               }}
                             >
-                              <i className="flaticon-online-learning" style={{ fontSize: 48, color: "#ccc" }} />
+                              <i className="flaticon-online-training" style={{ fontSize: 48, color: "#ccc" }} />
                             </div>
                           )}
                         </div>
@@ -480,7 +490,7 @@ export default function CourseListClient({
               {/* Empty state */}
               {!isLoading && !isFetching && courseList.length === 0 && (
                 <div style={{ textAlign: "center", padding: "60px 0" }}>
-                  <i className="flaticon-online-learning" style={{ fontSize: 64, color: "#ccc" }} />
+                  <i className="flaticon-online-training" style={{ fontSize: 64, color: "#ccc" }} />
                   <p style={{ marginTop: 16, color: "#888" }}>
                     No courses found. Try adjusting your filters.
                   </p>

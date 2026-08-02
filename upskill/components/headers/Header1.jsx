@@ -8,12 +8,7 @@ import MobileNav from "./MobileNav";
 import { authClient } from "@/lib/auth/auth-client";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/lib/cart-context";
-
-function dashboardHref(role) {
-  if (role === "ADMIN") return "/admin";
-  if (role === "INSTRUCTOR") return "/instructor";
-  return "/student";
-}
+import { dashboardLinks } from "@/lib/dashboard-links";
 
 export default function Header1() {
   const { data: session } = authClient.useSession();
@@ -262,28 +257,33 @@ export default function Header1() {
                           {role === "ADMIN" ? "Admin" : role === "INSTRUCTOR" ? "Instructor" : "Student"}
                         </div>
                       </div>
-                      {/* Dashboard link */}
-                      <Link
-                        href={dashboardHref(role)}
-                        onClick={() => setUserMenuOpen(false)}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 8,
-                          padding: "9px 12px",
-                          borderRadius: 8,
-                          fontSize: 14,
-                          fontWeight: 500,
-                          color: "#131836",
-                          textDecoration: "none",
-                          transition: "background 0.15s",
-                        }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = "#f8f8f8")}
-                        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                      >
-                        <i className="flaticon-online-learning" style={{ fontSize: 16, color: "#E27447" }} />
-                        My Dashboard
-                      </Link>
+                      {/* Dashboards available to this role.
+                          Staff also learn — an admin or instructor can buy courses, so they
+                          keep access to the student area alongside their own dashboard. */}
+                      {dashboardLinks(role).map((link) => (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          onClick={() => setUserMenuOpen(false)}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 8,
+                            padding: "9px 12px",
+                            borderRadius: 8,
+                            fontSize: 14,
+                            fontWeight: 500,
+                            color: "#131836",
+                            textDecoration: "none",
+                            transition: "background 0.15s",
+                          }}
+                          onMouseEnter={(e) => (e.currentTarget.style.background = "#f8f8f8")}
+                          onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                        >
+                          <i className={link.icon} style={{ fontSize: 16, color: "#E27447" }} />
+                          {link.label}
+                        </Link>
+                      ))}
                       <div style={{ height: 1, background: "#f0f0f0", margin: "4px 0" }} />
                       {/* Sign out */}
                       <button

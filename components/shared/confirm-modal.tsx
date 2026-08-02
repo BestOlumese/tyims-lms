@@ -9,6 +9,8 @@ interface ConfirmModalProps {
   onConfirm: () => void;
   title: string;
   description: string;
+  /** Name of the record being deleted, shown so the admin sees exactly what goes. */
+  confirmationText?: string;
   isLoading?: boolean;
   variant?: "danger" | "warning";
 }
@@ -19,6 +21,7 @@ export const ConfirmModal = ({
   onConfirm,
   title,
   description,
+  confirmationText,
   isLoading,
   variant = "danger"
 }: ConfirmModalProps) => {
@@ -34,6 +37,11 @@ export const ConfirmModal = ({
             <p className="text-[13px] text-rose-700/80 font-medium leading-relaxed mt-1">
               {description}
             </p>
+            {confirmationText && (
+              <p className="text-[13px] text-rose-900 font-bold mt-2 break-words">
+                {confirmationText}
+              </p>
+            )}
           </div>
         </div>
 

@@ -8,9 +8,78 @@
   bottom: -1px;
 }
 
-/* Prevent flash of empty categories dropdown while loading */
-#header_main .header-catalog ul:empty {
-  display: none;
+/* ── Form field helpers ──────────────────────────────────────────────────────
+   The template ships .tf-field / .tf-input but no error or hint styles.
+   These use the template's own custom properties so they stay on-brand. */
+.tf-field-error {
+  color: var(--Secondary, #e27447);
+  margin: 8px 0 0;
+  font-weight: 500;
+}
+
+.tf-field-hint {
+  color: var(--Soft-Text, #585d69);
+  margin: 8px 0 20px;
+}
+
+/* ── Become an Instructor ───────────────────────────────────────────────── */
+.tf-alert-rejected {
+  background: var(--bg-4, #ffefea);
+  border: 1px solid var(--Border, #e4e4e7);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 28px;
+}
+
+.tf-alert-rejected p {
+  margin: 0;
+  color: var(--Primary, #131836);
+}
+
+.tf-alert-rejected p + p {
+  margin-top: 6px;
+  color: var(--Soft-Text, #585d69);
+}
+
+.tf-benefit-list {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tf-benefit-item {
+  border-left: 2px solid var(--Secondary, #e27447);
+  padding-left: 16px;
+}
+
+.tf-benefit-item h6 {
+  margin: 0 0 4px;
+  color: var(--Primary, #131836);
+}
+
+.tf-benefit-item p {
+  margin: 0;
+  color: var(--Soft-Text, #585d69);
+}
+
+.tf-application-status {
+  background: var(--bg-5, #f5f5f2);
+  border: 1px solid var(--Border, #e4e4e7);
+  border-radius: 16px;
+  padding: 40px;
+}
+
+.tf-application-status p {
+  color: var(--Soft-Text, #585d69);
+  margin-bottom: 28px;
+}
+
+.tf-application-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 /* Smooth scrollbar */

@@ -114,7 +114,7 @@ export default function CategoriesClient({ initialData }: CategoriesClientProps)
   const processedCategories = useMemo(() => {
     if (!categories) return [];
     
-    let filtered = categories.filter((c: any) => 
+    const filtered = categories.filter((c: any) => 
       c.name.toLowerCase().includes(search.toLowerCase()) || 
       c.slug.toLowerCase().includes(search.toLowerCase())
     );
@@ -296,7 +296,7 @@ export default function CategoriesClient({ initialData }: CategoriesClientProps)
         title="Delete Category"
         description="Are you sure you want to delete this category? Associated courses will be marked as 'Uncategorized'."
         confirmationText={deleteCategory?.name}
-        loading={deleteMutation.isPending}
+        isLoading={deleteMutation.isPending}
       />
 
       {isAddOpen && (

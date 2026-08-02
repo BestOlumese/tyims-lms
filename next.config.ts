@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
   sassOptions: {
     silenceDeprecations: ["import"],
   },
+  experimental: {
+    // This app has multiple root layouts (template shell vs Tailwind dashboards), so there
+    // is no single layout to compose a 404 from. app/global-not-found.tsx supplies one for
+    // the whole app. See components/root-shell.tsx for why the roots are split.
+    globalNotFound: true,
+  },
 };
 
 export default nextConfig;

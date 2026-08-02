@@ -52,7 +52,7 @@ function CourseCard({ course, instructorName }) {
               justifyContent: "center",
             }}
           >
-            <i className="flaticon-online-learning" style={{ fontSize: 48, color: "#ccc" }} />
+            <i className="flaticon-online-training" style={{ fontSize: 48, color: "#ccc" }} />
           </div>
         )}
       </div>

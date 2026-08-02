@@ -69,7 +69,7 @@ export default function UsersClient({ initialData }: UsersClientProps) {
   const processedUsers = useMemo(() => {
     if (!users) return [];
     
-    let filtered = users.filter((u: any) => {
+    const filtered = users.filter((u: any) => {
       const matchesSearch = 
         u.name.toLowerCase().includes(search.toLowerCase()) || 
         u.email.toLowerCase().includes(search.toLowerCase());

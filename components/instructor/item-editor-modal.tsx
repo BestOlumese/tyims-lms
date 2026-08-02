@@ -74,7 +74,6 @@ export const ItemEditorModal = ({
   // Prefetch quiz data when modal opens for a QUIZ item
   useEffect(() => {
     if (isOpen && currentItem.type === "QUIZ" && currentItem.quizId) {
-      console.log("Modal: Prefetching quiz data...", currentItem.quizId);
       queryClient.prefetchQuery(
         orpc.instructor.getQuestions.queryOptions({ input: { quizId: currentItem.quizId } })
       );
@@ -132,11 +131,6 @@ export const ItemEditorModal = ({
 
       // 2. If quiz, save the questions from the ref
       if (currentItem.type === "QUIZ" && currentItem.quizId) {
-        console.log("Modal: Saving quiz to server...", { 
-            quizId: currentItem.quizId, 
-            questions: quizQuestionsRef.current 
-        });
-
         await saveQuizMutation.mutateAsync({
           quizId: currentItem.quizId,
           questions: quizQuestionsRef.current.map((q, idx) => ({
@@ -205,7 +199,6 @@ export const ItemEditorModal = ({
   };
 
   const onInitQuiz = useCallback(() => {
-    console.log("Modal: Quiz initialized and ready");
     setIsQuizReady(true);
   }, []);
 

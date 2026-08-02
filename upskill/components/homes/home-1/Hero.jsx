@@ -82,31 +82,31 @@ export default function Hero() {
                     <li className="agent-img-item">
                       <Image
                         className=" ls-is-cached lazyloaded"
-                        data-src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=400&auto=format&fit=crop"
+                        data-src="/images/avatar/user-1.png"
                         alt=""
                         width={84}
                         height={84}
-                        src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=400&auto=format&fit=crop"
+                        src="/images/avatar/user-1.png"
                       />
                     </li>
                     <li className="agent-img-item">
                       <Image
                         className=" ls-is-cached lazyloaded"
-                        data-src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=400&auto=format&fit=crop"
+                        data-src="/images/avatar/user-2.png"
                         alt=""
                         width={84}
                         height={84}
-                        src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=400&auto=format&fit=crop"
+                        src="/images/avatar/user-2.png"
                       />
                     </li>
                     <li className="agent-img-item">
                       <Image
                         className=" ls-is-cached lazyloaded"
-                        data-src="https://images.unsplash.com/photo-1545996124-1b3b5e8f3b3b?q=80&w=400&auto=format&fit=crop"
+                        data-src="/images/avatar/user-3.png"
                         alt=""
                         width={84}
                         height={84}
-                        src="https://images.unsplash.com/photo-1545996124-1b3b5e8f3b3b?q=80&w=400&auto=format&fit=crop"
+                        src="/images/avatar/user-3.png"
                       />
                     </li>
                   </ul>
@@ -131,7 +131,7 @@ export default function Hero() {
                 alt="Online learning hero"
                 width={960}
                 height={1161}
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop"
+                src="/images/page-title/page-title-home1.png"
               />
               <Image
                 className="item1 animate-cir45"

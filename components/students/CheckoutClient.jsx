@@ -84,7 +84,7 @@ export default function CheckoutClient() {
     return (
       <section className="tf-spacing-22 shop-checkout">
         <div className="tf-container" style={{ padding: "80px 0", textAlign: "center" }}>
-          <i className="flaticon-online-learning" style={{ fontSize: 64, color: "#ccc" }} />
+          <i className="flaticon-online-training" style={{ fontSize: 64, color: "#ccc" }} />
           <p style={{ marginTop: 16, color: "#888" }}>Your cart is empty.</p>
           <Link href="/courses" className="tf-btn" style={{ marginTop: 24, display: "inline-block" }}>
             Browse Courses <i className="icon-arrow-top-right" />

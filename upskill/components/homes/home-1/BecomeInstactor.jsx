@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 export default function BecomeInstactor() {
   return (
     <section
@@ -69,10 +70,10 @@ export default function BecomeInstactor() {
                       <p>1M+</p>
                     </li>
                   </ul>
-                  <a href="#" className="tf-btn">
+                  <Link href="/become-instructor" className="tf-btn">
                     Start Teaching Today
                     <i className="icon-arrow-top-right" />
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="content-img">

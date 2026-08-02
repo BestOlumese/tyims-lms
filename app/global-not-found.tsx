@@ -1,64 +1,68 @@
-import Footer1 from "@/upskill/components/footers/Footer1";
-import Header1 from "@/upskill/components/headers/Header1";
-import TemplateWrapper from "@/components/upskill/TemplateWrapper";
+// GLOBAL 404.
+//
+// With multiple root layouts there is no single layout Next can compose a 404 from, so
+// this file provides one for the whole app (enabled via experimental.globalNotFound in
+// next.config.ts). It bypasses normal rendering, so it must supply its own <html>, styles
+// and fonts.
+//
+// Deliberately standalone: it does NOT render Header1/Footer1, which depend on the query
+// client, session and cart providers. A 404 shouldn't need the whole provider tree.
+import "./globals.css";
+import "./template-theme.css";
+import type { Metadata } from "next";
+import { Cardo, DM_Sans } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
-export const metadata = {
+const dmSans = DM_Sans({ variable: "--font-dm-sans", subsets: ["latin"], display: "swap" });
+const cardo = Cardo({
+  variable: "--font-cardo",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+});
+
+export const metadata: Metadata = {
   title: "Page Not Found | TYIMS LMS",
   description: "The page you are looking for does not exist.",
 };
 
-export default function NotFoundPage() {
+export default function GlobalNotFound() {
   return (
-    <>
-      <link rel="stylesheet" href="/css/bootstrap.css" />
-      <link rel="stylesheet" href="/css/animate.min.css" />
-      <link rel="stylesheet" href="/css/mmenu.css" />
-      <link rel="stylesheet" href="/css/swiper-bundle.min.css" />
-      <link rel="stylesheet" href="/css/magnific-popup.min.css" />
-      <link rel="stylesheet" href="/css/template-main.css" />
-      <link rel="stylesheet" href="/font/fonts.css" />
-      <link rel="stylesheet" href="/icons/flat/flaticon_upskill.css" />
-      <link rel="stylesheet" href="/icons/icomoon/style.css" />
-      <TemplateWrapper>
-        <div id="wrapper">
-          <Header1 />
-          <div className="main-content page-404">
-            <section className="page-404-wrap">
-              <div className="tf-container">
-                <div className="row">
-                  <div className="col-lg-8">
-                    <div className="thumds">
-                      <Image
-                        className="ls-is-cached lazyloaded"
-                        src="/images/section/404.png"
-                        alt="404"
-                        width={1536}
-                        height={1236}
-                      />
-                    </div>
+    <html lang="en" className={`${dmSans.variable} ${cardo.variable}`}>
+      <body>
+        <div className="main-content page-404">
+          <section className="page-404-wrap">
+            <div className="tf-container">
+              <div className="row">
+                <div className="col-lg-8">
+                  <div className="thumds">
+                    <Image
+                      src="/images/section/404.png"
+                      alt=""
+                      width={1536}
+                      height={1236}
+                      priority
+                    />
                   </div>
-                  <div className="col-lg-4 flex items-center">
-                    <div className="errors-404-content">
-                      <h3>Oops! It looks like you&apos;re lost.</h3>
-                      <p>
-                        The page you&apos;re looking for isn&apos;t available. Try to search
-                        again or use the go to.
-                      </p>
-                      <Link className="tf-btn" href={`/`}>
-                        Go Back To Homepage <i className="icon-arrow-top-right" />
-                      </Link>
-                    </div>
+                </div>
+                <div className="col-lg-4 flex items-center">
+                  <div className="errors-404-content">
+                    <h3 className="font-cardo">Oops! It looks like you&apos;re lost.</h3>
+                    <p>
+                      The page you&apos;re looking for isn&apos;t available. Try searching
+                      again or head back to the homepage.
+                    </p>
+                    <Link className="tf-btn" href="/">
+                      Go Back To Homepage <i className="icon-arrow-top-right" />
+                    </Link>
                   </div>
                 </div>
               </div>
-            </section>
-          </div>
-          <Footer1 />
+            </div>
+          </section>
         </div>
-      </TemplateWrapper>
-    </>
+      </body>
+    </html>
   );
 }

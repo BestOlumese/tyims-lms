@@ -6,6 +6,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Geist was removed from app/layout.tsx (it was a Vercel default, loaded on every
+     page and used nowhere outside these dashboards). DM Sans is now loaded there via
+     next/font and self-hosted, so point the dashboard sans stack at it. */
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 }

@@ -34,7 +34,7 @@ function CourseCard({ course }) {
               justifyContent: "center",
             }}
           >
-            <i className="flaticon-online-learning" style={{ fontSize: 40, color: "#ccc" }} />
+            <i className="flaticon-online-training" style={{ fontSize: 40, color: "#ccc" }} />
           </div>
         )}
         <div
@@ -244,7 +244,7 @@ export default function StudentMyCoursesClient() {
                   ) : !courses || courses.length === 0 ? (
                     <div style={{ textAlign: "center", padding: "60px 0", color: "#888" }}>
                       <i
-                        className="flaticon-online-learning"
+                        className="flaticon-online-training"
                         style={{ fontSize: 64, color: "#ccc", display: "block", marginBottom: 16 }}
                       />
                       <p style={{ fontSize: 17, marginBottom: 24 }}>

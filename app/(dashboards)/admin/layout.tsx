@@ -11,7 +11,9 @@ import {
   Menu,
   X,
   GraduationCap,
-  BookOpen
+  BookOpen,
+  Wallet,
+  Banknote
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -21,6 +23,8 @@ import { TopBar } from "@/components/admin/top-bar";
 
 const navItems = [
   { name: "Overview", href: "/admin", icon: LayoutDashboard },
+  { name: "Revenue", href: "/admin/revenue", icon: Wallet },
+  { name: "Payouts", href: "/admin/payouts", icon: Banknote },
   { name: "Categories", href: "/admin/categories", icon: Layers },
   { name: "Users", href: "/admin/users", icon: Users },
   { name: "Courses", href: "/admin/courses", icon: BookOpen },

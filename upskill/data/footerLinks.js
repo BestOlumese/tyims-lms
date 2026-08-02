@@ -1,26 +1,28 @@
+// Only routes that actually exist in this app.
+// The template shipped links to /course-grid-basic, /instructor-list, /event-list,
+// /become-teacher and /pricing, plus several "#" placeholders — all of which either
+// 404'd or did nothing. They have been remapped to real routes or removed.
 export const menuItems = [
   {
     title: "Company",
     delay: "0.2s",
     links: [
       { name: "About", href: "/about" },
-      { name: "Courses", href: "/course-grid-basic" },
-      { name: "Instructor", href: "/instructor-list" },
-      { name: "Events", href: "/event-list" },
-      { name: "Become a teacher", href: "/become-teacher" },
+      { name: "Courses", href: "/courses" },
+      { name: "Instructors", href: "/instructors" },
+      { name: "Become an Instructor", href: "/become-instructor" },
+      { name: "Contact", href: "/contact" },
     ],
   },
   {
     title: "Useful Links",
     delay: "0.3s",
     links: [
-      { name: "Testimonials", href: "#" },
-      { name: "Pricing", href: "/pricing" },
+      { name: "Categories", href: "/categories" },
       { name: "FAQs", href: "/faq" },
       { name: "Help Center", href: "/help-center" },
       { name: "Terms", href: "/terms" },
-      { name: "Sitemap", href: "#" },
-      { name: "Privacy", href: "#" },
+      { name: "My Courses", href: "/my-courses" },
     ],
   },
   {

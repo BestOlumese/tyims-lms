@@ -13,6 +13,8 @@ import {
   PlusCircle,
   Star,
   CheckSquare,
+  Wallet,
+  Banknote,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -22,6 +24,8 @@ import { TopBar } from "@/components/admin/top-bar";
 
 const navItems = [
   { name: "Overview", href: "/instructor", icon: LayoutDashboard },
+  { name: "Revenue", href: "/instructor/revenue", icon: Wallet },
+  { name: "Withdraw", href: "/instructor/withdraw", icon: Banknote },
   { name: "My Courses", href: "/instructor/courses", icon: BookOpen },
   { name: "Assessments", href: "/instructor/assessments", icon: CheckSquare },
   { name: "Enrollments", href: "/instructor/enrollments", icon: Users },

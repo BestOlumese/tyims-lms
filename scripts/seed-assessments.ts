@@ -5,13 +5,6 @@ import { faker } from "@faker-js/faker";
 import crypto from "crypto";
 import { eq, inArray } from "drizzle-orm";
 
-import "dotenv/config";
-import { db } from "../lib/db";
-import { users, enrollments, courses, chapters, lessons, quizzes, quizSubmissions, quizQuestions, quizOptions } from "../lib/db/schema";
-import { faker } from "@faker-js/faker";
-import crypto from "crypto";
-import { eq, inArray } from "drizzle-orm";
-
 async function main() {
   console.log("🌱 Starting Assessments Seeding...");
 

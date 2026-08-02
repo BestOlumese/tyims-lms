@@ -3,16 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  Bell,
   ChevronDown,
-  Search,
-  User,
   Settings,
   LogOut,
-  MoreHorizontal,
   Globe,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { NotificationBell } from "@/components/shared/notification-bell";
+import { DashboardSearch } from "@/components/shared/dashboard-search";
 
 interface TopBarProps {
   title?: string;
@@ -27,7 +25,6 @@ interface TopBarProps {
 }
 
 export const TopBar = ({ title, roleLabel = "Account", settingsHref = "/admin/settings", user, onLogout }: TopBarProps) => {
-  const [notifOpen, setNotifOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
 
   if (!user) return (
@@ -46,69 +43,20 @@ export const TopBar = ({ title, roleLabel = "Account", settingsHref = "/admin/se
             {title}
           </h1>
         )}
-        <div className="hidden md:flex items-center gap-2 bg-gray-50 border border-gray-100 rounded-xl px-4 py-2 w-80 transition-all focus-within:ring-2 focus-within:ring-indigo-500/10 focus-within:border-indigo-500/20">
-            <Search size={16} className="text-gray-400" />
-            <input 
-            type="text" 
-            placeholder="Search everything..." 
-            className="bg-transparent border-none outline-none text-[13px] w-full text-gray-700 placeholder:text-gray-400"
-            />
-        </div>
+        {/* Real search. This input previously had no handler at all. */}
+        <DashboardSearch />
       </div>
 
       <div className="flex items-center gap-4">
-        {/* Notifications */}
-        <div className="relative">
-          <button 
-            onClick={() => {
-              setNotifOpen(!notifOpen);
-              setProfileOpen(false);
-            }}
-            className="p-2.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all relative"
-          >
-            <Bell size={20} />
-            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white" />
-          </button>
-
-          {notifOpen && (
-            <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 p-2 animate-in slide-in-from-top-2 duration-200 z-50">
-              <div className="p-4 border-b border-gray-50">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-gray-900">Notifications</h3>
-                  <span className="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">4 New</span>
-                </div>
-              </div>
-              <div className="max-h-80 overflow-y-auto">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="p-4 hover:bg-gray-50 rounded-xl transition-colors cursor-pointer group">
-                    <div className="flex gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0 group-hover:bg-indigo-100 transition-colors">
-                        <User size={16} />
-                      </div>
-                      <div className="space-y-1">
-                        <p className="text-[13px] font-semibold text-gray-900 leading-tight">New Instructor joined</p>
-                        <p className="text-[12px] text-gray-500 leading-tight">A new instructor has requested to join the platform.</p>
-                        <p className="text-[11px] text-gray-400 font-medium">2 hours ago</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <button className="w-full mt-2 p-3 text-[13px] font-bold text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all border-t border-gray-50 flex items-center justify-center gap-2">
-                See all notifications
-                <MoreHorizontal size={14} />
-              </button>
-            </div>
-          )}
-        </div>
+        {/* Notifications — real, DB-backed. This block previously rendered three
+            hardcoded "New Instructor joined" entries and a fake "4 New" badge to
+            every user regardless of what had actually happened. */}
+        <NotificationBell />
 
         {/* Profile Dropdown */}
         <div className="relative">
           <button 
-            onClick={() => {
-              setProfileOpen(!profileOpen);
-              setNotifOpen(false);
-            }}
+            onClick={() => setProfileOpen(!profileOpen)}
             className="flex items-center gap-3 p-1.5 pr-3 hover:bg-gray-50 rounded-2xl transition-all group"
           >
             <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold text-[14px] shadow-lg shadow-indigo-100 overflow-hidden">

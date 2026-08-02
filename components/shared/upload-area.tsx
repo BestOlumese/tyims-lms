@@ -88,8 +88,10 @@ export function UploadArea({
         {status !== "uploading" && (
           <div className="relative z-50">
             <UploadButton
-              endpoint={endpoint}
-              input={input}
+              // `endpoint` is typed `any`, so UploadThing can't narrow which FileRoute is
+              // in play and rejects `input` — even though chapterVideo really does declare
+              // `.input({ lessonId })`. Cast keeps the correct runtime behaviour.
+              {...({ endpoint, input } as any)}
               onUploadBegin={(name) => {
                 setFileName(name);
                 setStatus("uploading");

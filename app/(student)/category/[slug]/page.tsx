@@ -1,6 +1,9 @@
 import { db } from "@/lib/db";
-import { categories, courses, users } from "@/lib/db/schema";
-import { eq, desc, count, sql, and } from "drizzle-orm";
+import { categories } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+import { notFound } from "next/navigation";
+import { call } from "@orpc/server";
+import { appRouter } from "@/server/api/root";
 import CourseListClient from "@/components/students/CourseListClient";
 import PageTitle from "@/upskill/components/course-list/PageTitle";
 
@@ -15,36 +18,19 @@ export async function generateMetadata({ params }: Props) {
   return { title: `${cat?.name ?? slug} — Category | TYIMS LMS` };
 }
 
+/**
+ * Server-render the exact same procedure the client re-queries after hydration.
+ * See the note in app/(student)/courses/page.tsx — the hand-written query this
+ * replaced returned a narrower row shape than getPublicCourses, so every card
+ * re-flowed once the client query resolved.
+ */
 async function fetchCategoryInitialData(categoryId: string) {
   try {
-    const pageSize = 12;
-    const publishedInCategory = and(
-      eq(courses.status, "PUBLISHED"),
-      sql`${courses.categoryId} = ${categoryId}`,
+    return await call(
+      appRouter.getPublicCourses,
+      { page: 1, pageSize: 12, sort: "newest", categoryIds: [categoryId] },
+      { context: { user: null } },
     );
-
-    const [{ value: total }] = await db
-      .select({ value: count() })
-      .from(courses)
-      .where(publishedInCategory);
-
-    const rows = await db
-      .select({
-        id: courses.id,
-        title: courses.title,
-        price: courses.price,
-        thumbnailUrl: courses.thumbnailUrl,
-        instructorName: users.name,
-        categoryName: categories.name,
-      })
-      .from(courses)
-      .leftJoin(users, eq(courses.instructorId, users.id))
-      .leftJoin(categories, eq(courses.categoryId, categories.id))
-      .where(publishedInCategory)
-      .orderBy(desc(courses.createdAt))
-      .limit(pageSize);
-
-    return { total: total || 0, page: 1, pageSize, data: rows };
   } catch {
     return null;
   }
@@ -58,20 +44,20 @@ export default async function CategoryPage({ params }: Props) {
     .from(categories)
     .where(eq(categories.slug, slug));
 
-  const initialCategoryId = cat?.id ?? null;
-  const initialData = initialCategoryId
-    ? await fetchCategoryInitialData(initialCategoryId)
-    : null;
+  // Previously an unknown slug rendered an empty page titled "Category".
+  if (!cat) notFound();
+
+  const initialData = await fetchCategoryInitialData(cat.id);
 
   return (
     <>
       <PageTitle
-        pageName={cat?.name ?? "Category"}
-        breadcrumbs={cat?.name ? [{ label: cat.name }] : []}
+        pageName={cat.name}
+        breadcrumbs={[{ label: cat.name }]}
       />
       <div className="main-content pt-0">
         <CourseListClient
-          initialCategoryId={initialCategoryId}
+          initialCategoryId={cat.id}
           initialData={initialData}
           hideCategoryFilter={true}
         />

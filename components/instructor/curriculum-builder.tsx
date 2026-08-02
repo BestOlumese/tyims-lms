@@ -260,7 +260,7 @@ export const CurriculumBuilder = ({ courseId, initialChapters }: CurriculumBuild
         const chapter = currentChapters.find(c => c.id === chapterId);
         if (!chapter) return;
 
-        const newLessons = Array.from(chapter.lessons || []);
+        const newLessons: any[] = Array.from(chapter.lessons || []);
         const [reorderedLesson] = newLessons.splice(source.index, 1);
         newLessons.splice(destination.index, 0, reorderedLesson);
 

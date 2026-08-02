@@ -1,8 +1,7 @@
 import CourseListClient from "@/components/students/CourseListClient";
 import PageTitle from "@/upskill/components/course-list/PageTitle";
-import { db } from "@/lib/db";
-import { courses, users, categories } from "@/lib/db/schema";
-import { desc, eq, count } from "drizzle-orm";
+import { call } from "@orpc/server";
+import { appRouter } from "@/server/api/root";
 
 export const metadata = {
   title: "Courses | TYIMS LMS",
@@ -13,25 +12,22 @@ type Props = {
   searchParams: Promise<{ q?: string }>;
 };
 
+/**
+ * Server-render the exact same procedure the client re-queries after hydration.
+ *
+ * This used to be a hand-written Drizzle query that had drifted from getPublicCourses:
+ * it was missing the `status = PUBLISHED` filter (so unpublished drafts appeared on the
+ * first paint) and it returned a narrower row shape (no rating, lesson count or
+ * discount price), which made every card visibly re-flow once the client query resolved.
+ * Calling the procedure directly keeps the two permanently in sync.
+ */
 async function fetchInitialCourses() {
   try {
-    const pageSize = 12;
-    const [{ value: total }] = await db.select({ value: count() }).from(courses);
-    const rows = await db
-      .select({
-        id: courses.id,
-        title: courses.title,
-        price: courses.price,
-        thumbnailUrl: courses.thumbnailUrl,
-        instructorName: users.name,
-        categoryName: categories.name,
-      })
-      .from(courses)
-      .leftJoin(users, eq(courses.instructorId, users.id))
-      .leftJoin(categories, eq(courses.categoryId, categories.id))
-      .orderBy(desc(courses.createdAt))
-      .limit(pageSize);
-    return { total: total || 0, page: 1, pageSize, data: rows };
+    return await call(
+      appRouter.getPublicCourses,
+      { page: 1, pageSize: 12, sort: "newest" },
+      { context: { user: null } },
+    );
   } catch {
     return null;
   }
@@ -39,6 +35,8 @@ async function fetchInitialCourses() {
 
 export default async function CoursesPage({ searchParams }: Props) {
   const { q } = await searchParams;
+  // CourseListClient only accepts initialData when no search term is active,
+  // so don't bother fetching it for a search request.
   const initialData = q ? null : await fetchInitialCourses();
 
   return (

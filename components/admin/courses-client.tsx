@@ -54,7 +54,7 @@ export default function CoursesClient({ initialData }: CoursesClientProps) {
   const processedCourses = useMemo(() => {
     if (!courses) return [];
     
-    let filtered = courses.filter((c: any) => {
+    const filtered = courses.filter((c: any) => {
       const matchesSearch = 
         c.title.toLowerCase().includes(search.toLowerCase()) || 
         c.instructorName?.toLowerCase().includes(search.toLowerCase());
@@ -267,7 +267,7 @@ export default function CoursesClient({ initialData }: CoursesClientProps) {
         title="Delete Course"
         description="Are you sure you want to delete this course? This action cannot be undone and will remove all lessons and enrollments associated with it."
         confirmationText={deleteCourse?.title}
-        loading={deleteMutation.isPending}
+        isLoading={deleteMutation.isPending}
       />
     </div>
   );

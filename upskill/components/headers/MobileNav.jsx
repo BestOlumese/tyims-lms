@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { orpc } from "@/lib/orpc";
 import { authClient } from "@/lib/auth/auth-client";
+import { dashboardLinks } from "@/lib/dashboard-links";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
@@ -14,6 +15,9 @@ const NAV_ITEMS = [
   { label: "About", href: "/about" },
   { label: "Contact Us", href: "/contact" },
 ];
+
+// Mirrors the desktop nav: hidden for users who already teach.
+const TEACH_ITEM = { label: "Become an Instructor", href: "/become-instructor" };
 
 export default function MobileNav() {
   const pathname = usePathname();
@@ -65,7 +69,10 @@ export default function MobileNav() {
 
         <div className="offcanvas-body">
           <ul className="list-group">
-            {NAV_ITEMS.map(({ href, label }) => (
+            {(user?.role === "INSTRUCTOR" || user?.role === "ADMIN"
+              ? NAV_ITEMS
+              : [...NAV_ITEMS, TEACH_ITEM]
+            ).map(({ href, label }) => (
               <li key={href} className="list-group-item">
                 <Link
                   href={href}
@@ -141,6 +148,67 @@ export default function MobileNav() {
               </li>
             )}
           </ul>
+
+          {/* Dashboards — logged-in only.
+              The mobile menu previously had no signed-in section at all, so there was no
+              way to reach any dashboard from a phone. */}
+          {user && (
+            <div style={{ marginTop: 20, borderTop: "1px solid #f0f0f0", paddingTop: 16 }}>
+              <p
+                style={{
+                  fontSize: 12,
+                  fontWeight: 700,
+                  color: "#999",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.06em",
+                  marginBottom: 8,
+                }}
+              >
+                {user.name || user.email}
+              </p>
+              <ul className="list-group">
+                {dashboardLinks(user.role).map((link) => (
+                  <li key={link.href} className="list-group-item">
+                    <Link
+                      href={link.href}
+                      data-bs-dismiss="offcanvas"
+                      className={`nav-link-mobile${isActive(link.href) ? " activeMenu" : ""}`}
+                      style={{ display: "flex", alignItems: "center", gap: 10 }}
+                    >
+                      <i className={link.icon} style={{ fontSize: 16, color: "#E27447" }} />
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+                <li className="list-group-item">
+                  <button
+                    type="button"
+                    data-bs-dismiss="offcanvas"
+                    onClick={async () => {
+                      await authClient.signOut();
+                      router.push("/");
+                      router.refresh();
+                    }}
+                    className="nav-link-mobile"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 10,
+                      background: "none",
+                      border: "none",
+                      padding: 0,
+                      color: "#e53e3e",
+                      cursor: "pointer",
+                      font: "inherit",
+                    }}
+                  >
+                    <i className="flaticon-unlock" style={{ fontSize: 16 }} />
+                    Sign Out
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
 
           {/* Auth buttons — logged-out only */}
           {!user && (

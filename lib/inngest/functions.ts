@@ -17,9 +17,11 @@ export const processVideo = inngest.createFunction(
     // 1. Create Mux Asset
     const asset = await step.run("create-mux-asset", async () => {
       console.log(`[INNGEST] Creating Mux asset...`);
+      // `input` and `playback_policy` are both deprecated in @mux/mux-node v14;
+      // the current names are `inputs` (required) and `playback_policies`.
       const newAsset = await mux.video.assets.create({
-        input: [{ url: videoUrl }],
-        playback_policy: ["public"],
+        inputs: [{ url: videoUrl }],
+        playback_policies: ["public"],
       });
       console.log(`[INNGEST] Mux asset created: ${newAsset.id}`);
       return {
